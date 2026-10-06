@@ -1,0 +1,176 @@
+{
+  "@context": "https://schema.org",
+  "@type": [
+    "LocalBusiness",
+    "GeneralContractor"
+  ],
+  "@id": "{{BASE_URL}}/#business",
+  "name": "J&A Remodeling and Services LLC",
+  "alternateName": "J & A Remodeling",
+  "url": "{{BASE_URL}}",
+  "telephone": "+1-980-298-4600",
+  "email": "mailto:abelmancilla863@gmail.com",
+  "description": "Insured Charlotte remodeling and property-services company providing unit turns, make-ready services, painting, drywall, flooring, cleaning, trash-out, punch-list repairs, property maintenance, kitchen and bathroom remodeling, home renovations and multifamily project support.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "3119 Central Ave, Unit I",
+    "addressLocality": "Charlotte",
+    "addressRegion": "NC",
+    "postalCode": "28205",
+    "addressCountry": "US"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Charlotte",
+    "containedInPlace": {
+      "@type": "State",
+      "name": "North Carolina"
+    }
+  },
+  "knowsLanguage": [
+    "en",
+    "es"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Monday",
+      "opens": "08:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Tuesday",
+      "opens": "08:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Wednesday",
+      "opens": "08:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Thursday",
+      "opens": "08:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Friday",
+      "opens": "08:00",
+      "closes": "18:00"
+    }
+  ],
+  "sameAs": [
+    "https://abelremodel.com/",
+    "https://www.homeadvisor.com/rated.JARemodeling.112480483.html"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+1-980-298-4600",
+    "email": "abelmancilla863@gmail.com",
+    "contactType": "customer service",
+    "availableLanguage": [
+      "English",
+      "Spanish"
+    ]
+  },
+  "audience": [
+    {
+      "@type": "Audience",
+      "audienceType": "Property managers"
+    },
+    {
+      "@type": "Audience",
+      "audienceType": "Multifamily operators"
+    },
+    {
+      "@type": "Audience",
+      "audienceType": "Rental property owners"
+    },
+    {
+      "@type": "Audience",
+      "audienceType": "Remote real estate investors"
+    }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Property turn and renovation services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Unit Turn / Make-Ready",
+          "areaServed": "Charlotte, North Carolina"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Painting and Drywall",
+          "areaServed": "Charlotte, North Carolina"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Flooring and Surfaces",
+          "areaServed": "Charlotte, North Carolina"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Cleaning and Trash-Out",
+          "areaServed": "Charlotte, North Carolina"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Punch-List Repairs",
+          "areaServed": "Charlotte, North Carolina"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Property Maintenance",
+          "areaServed": "Charlotte, North Carolina"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Kitchen and Bathroom Remodeling",
+          "areaServed": "Charlotte, North Carolina"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Home Renovation",
+          "areaServed": "Charlotte, North Carolina"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Multifamily Renovation Support",
+          "areaServed": "Charlotte, North Carolina"
+        }
+      }
+    ]
+  }
+}

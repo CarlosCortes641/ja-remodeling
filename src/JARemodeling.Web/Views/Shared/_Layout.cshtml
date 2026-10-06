@@ -1,0 +1,50 @@
+﻿@inject SiteJsonLd JsonLd
+@{
+    var page = ViewData["Page"] as SitePage;
+    var title = ViewData["Title"] as string ?? SiteInfo.ShortName;
+    var description = ViewData["MetaDescription"] as string;
+    var robots = ViewData["Robots"] as string ?? "index, follow";
+    var baseUrl = PublicUrl.Base(Context.Request);
+    var canonical = page is null
+        ? null
+        : PublicUrl.Absolute(Context.Request, Lang.IsSpanish ? page.SpanishPath : page.EnglishPath);
+}
+<!DOCTYPE html>
+<html lang="@Lang.HtmlLang">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@title</title>
+    @if (!string.IsNullOrEmpty(description))
+    {
+        <meta name="description" content="@description" />
+    }
+    <meta name="robots" content="@robots" />
+    @if (page is not null)
+    {
+        <link rel="canonical" href="@canonical" />
+        <link rel="alternate" hreflang="en-US" href="@PublicUrl.Absolute(Context.Request, page.EnglishPath)" />
+        <link rel="alternate" hreflang="es-US" href="@PublicUrl.Absolute(Context.Request, page.SpanishPath)" />
+        <link rel="alternate" hreflang="x-default" href="@PublicUrl.Absolute(Context.Request, page.EnglishPath)" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="@SiteInfo.LegalName" />
+        <meta property="og:title" content="@title" />
+        <meta property="og:description" content="@description" />
+        <meta property="og:url" content="@canonical" />
+        <meta property="og:locale" content="@(Lang.IsSpanish ? "es_US" : "en_US")" />
+        <meta name="twitter:card" content="summary" />
+    }
+    <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @if (page is not null)
+    {
+        <script type="application/ld+json">@Html.Raw(JsonLd.Render(baseUrl))</script>
+    }
+</head>
+<body>
+<main class="@ViewData["MainClass"]" lang="@Lang.HtmlLang">
+@RenderBody()
+</main>
+<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

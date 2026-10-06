@@ -1,0 +1,14 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    ViewData["Robots"] = "noindex, nofollow";
+}
+<section class="section">
+    <p class="eyebrow">ERROR</p>
+    <h2>@Lang.T("Something went wrong.", "Algo salió mal.")</h2>
+    <p>@Lang.T("Please try again or call", "Inténtelo nuevamente o llame al") <a href="tel:@SiteInfo.PhoneTel">@SiteInfo.PhoneDisplay</a>.</p>
+    @if (Model.ShowRequestId)
+    {
+        <p><small>Request ID: <code>@Model.RequestId</code></small></p>
+    }
+</section>

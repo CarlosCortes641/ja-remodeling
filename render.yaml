@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: ja-remodeling
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: DOTNET_GCServer
+        value: "0"
+      - key: DOTNET_EnableDiagnostics
+        value: "0"
+      - key: DOTNET_GCHeapHardLimit
+        value: "268435456"

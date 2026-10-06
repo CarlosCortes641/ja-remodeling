@@ -1,0 +1,58 @@
+@model IReadOnlyList<JARemodeling.Web.Demo.LeadRecord>
+@{
+    ViewData["Title"] = "Ops · Leads (sandbox)";
+    ViewData["Robots"] = "noindex, nofollow";
+}
+<section class="section">
+    <p class="eyebrow">INTERNAL BOARD</p>
+    <h2>Leads in memory</h2>
+    <p>Demo only. Restarting the app clears this list. No email is sent.</p>
+    @if (Model.Count == 0)
+    {
+        <p>No leads yet. Submit the scope request or the six-step planner on the site.</p>
+    }
+    else
+    {
+        <div style="overflow:auto;margin-top:1.5rem">
+            <table style="width:100%;border-collapse:collapse;font-size:0.95rem">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;padding:0.6rem;border-bottom:1px solid var(--line)">Reference</th>
+                        <th style="text-align:left;padding:0.6rem;border-bottom:1px solid var(--line)">When</th>
+                        <th style="text-align:left;padding:0.6rem;border-bottom:1px solid var(--line)">Contact</th>
+                        <th style="text-align:left;padding:0.6rem;border-bottom:1px solid var(--line)">Request</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var lead in Model)
+                {
+                    <tr>
+                        <td style="padding:0.6rem;border-bottom:1px solid var(--line);vertical-align:top">
+                            <code>@lead.Id</code><br /><small>@lead.Source · @lead.Language</small>
+                        </td>
+                        <td style="padding:0.6rem;border-bottom:1px solid var(--line);vertical-align:top">@lead.CreatedAt.ToLocalTime().ToString("g")</td>
+                        <td style="padding:0.6rem;border-bottom:1px solid var(--line);vertical-align:top">
+                            <strong>@lead.Name</strong><br />
+                            <a href="mailto:@lead.Email">@lead.Email</a><br />
+                            @if (!string.IsNullOrWhiteSpace(lead.Phone))
+                            {
+                                <a href="tel:@lead.Phone">@lead.Phone</a>
+                            }
+                        </td>
+                        <td style="padding:0.6rem;border-bottom:1px solid var(--line);vertical-align:top">
+                            @lead.Summary
+                            @foreach (var key in new[] { "company", "services", "vacancyDate", "targetDate", "details" })
+                            {
+                                if (lead.Fields.TryGetValue(key, out var value))
+                                {
+                                    <br /><small><b>@key:</b> @value</small>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

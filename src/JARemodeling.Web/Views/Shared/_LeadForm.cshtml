@@ -1,0 +1,93 @@
+@model JARemodeling.Web.ViewModels.LeadFormOptions
+<form class="leadForm" data-lead-form data-source="@Model.Source">
+    <div class="formIntro">
+        <h3>@Lang.T("Request a scope review", "Solicitar revisión del alcance")</h3>
+        <p>@Lang.T("Complete the three short sections below. Required fields are marked with an asterisk. J&A will use this information to understand the property and define the next scoping action.", "Complete las tres secciones cortas. Los campos obligatorios están marcados con un asterisco. J&A utilizará esta información para entender la propiedad y definir el próximo paso.")</p>
+    </div>
+    <p class="formDivider"><b>01</b>@Lang.T("Contact and role", "Contacto y función")</p>
+    <label><span>@Lang.T("I am a", "Soy") <em>*</em></span>
+        <select name="buyerType" required="">
+            <option value="property-manager" selected="@(Model.DefaultBuyer == "property-manager")">@Lang.T("Property manager", "Administrador de propiedades")</option>
+            <option value="multifamily" selected="@(Model.DefaultBuyer == "multifamily")">@Lang.T("Multifamily team", "Equipo multifamiliar")</option>
+            <option value="rental-owner" selected="@(Model.DefaultBuyer == "rental-owner")">@Lang.T("Rental owner", "Propietario de alquiler")</option>
+            <option value="remote-investor" selected="@(Model.DefaultBuyer == "remote-investor")">@Lang.T("Remote investor", "Inversionista remoto")</option>
+        </select>
+    </label>
+    <label><span>@Lang.T("Full name", "Nombre completo") <em>*</em></span><input required="" name="name"/></label>
+    <label><span>@Lang.T("Company / property", "Compañía / propiedad")</span><input name="company"/></label>
+    <label><span>@Lang.T("Email", "Correo") <em>*</em></span><input type="email" required="" name="email"/></label>
+    <label><span>@Lang.T("Phone", "Teléfono")</span><input type="tel" name="phone"/></label>
+    <label><span>@Lang.T("Preferred response", "Respuesta preferida")</span>
+        <select name="preferredContact">
+            <option value="" selected="">—</option>
+            <option>@Lang.T("Phone call", "Llamada")</option>
+            <option>@Lang.T("Text message", "Mensaje de texto")</option>
+            <option>@Lang.T("Email", "Correo")</option>
+        </select>
+    </label>
+    <p class="formDivider"><b>02</b>@Lang.T("Property and timing", "Propiedad y calendario")</p>
+    <label><span>@Lang.T("Project goal", "Objetivo del proyecto") <em>*</em></span>
+        <select name="projectGoal" required="">
+            <option value="" selected="">—</option>
+            <option>@Lang.T("Prepare for a new resident", "Preparar para un nuevo residente")</option>
+            <option>@Lang.T("Repair or maintain the property", "Reparar o mantener la propiedad")</option>
+            <option>@Lang.T("Renovate / improve value", "Renovar / mejorar el valor")</option>
+            <option>@Lang.T("Prepare to sell", "Preparar para vender")</option>
+            <option>@Lang.T("Request budget planning", "Solicitar planificación de presupuesto")</option>
+        </select>
+    </label>
+    <label><span>@Lang.T("Current status", "Estado actual") <em>*</em></span>
+        <select name="occupancy" required="">
+            <option value="" selected="">—</option>
+            <option>@Lang.T("Vacant now", "Vacante ahora")</option>
+            <option>@Lang.T("Move-out scheduled", "Mudanza programada")</option>
+            <option>@Lang.T("Occupied", "Ocupada")</option>
+            <option>@Lang.T("Under acquisition / closing", "En compra / closing")</option>
+            <option>@Lang.T("Not sure yet", "Todavía no estoy seguro")</option>
+        </select>
+    </label>
+    <label class="wide"><span>@Lang.T("Property address or ZIP", "Dirección o ZIP") <em>*</em></span><input required="" name="propertyAddress"/></label>
+    <label><span>@Lang.T("Property type", "Tipo de propiedad") <em>*</em></span>
+        <select name="propertyType" required="">
+            <option value="" selected="">—</option>
+            <option>@Lang.T("Single-family rental", "Casa de alquiler")</option>
+            <option>Condo / townhome</option>
+            <option>@Lang.T("Apartment building", "Edificio de apartamentos")</option>
+            <option>@Lang.T("Multifamily community", "Comunidad multifamiliar")</option>
+            <option>@Lang.T("Build-to-rent / scattered site", "Build-to-rent / propiedades dispersas")</option>
+            <option>@Lang.T("Common area / leasing office", "Área común / oficina de leasing")</option>
+            <option>@Lang.T("Other", "Otro")</option>
+        </select>
+    </label>
+    <label><span>@Lang.T("Unit count", "Cantidad de unidades")</span><input type="number" min="1" name="unitCount"/></label>
+    <label><span>@Lang.T("Vacant / move-out date", "Fecha vacante / mudanza")</span><input type="date" name="vacancyDate"/></label>
+    <label><span>@Lang.T("Target rent-ready date", "Fecha objetivo")</span><input type="date" name="targetDate"/></label>
+    <label class="wide"><span>@Lang.T("Planning budget (optional)", "Presupuesto de planificación (opcional)")</span>
+        <select name="budgetRange">
+            <option value="" selected="">—</option>
+            <option>@Lang.T("Under $2,500", "Menos de $2,500")</option>
+            <option>$2,500–$5,000</option>
+            <option>$5,000–$15,000</option>
+            <option>$15,000–$50,000</option>
+            <option>$50,000+</option>
+            <option>@Lang.T("Need J&A to evaluate", "Necesito evaluación de J&A")</option>
+        </select>
+    </label>
+    <p class="formDivider"><b>03</b>@Lang.T("Scope and authorization", "Alcance y autorización")</p>
+    <fieldset class="wide serviceChecks">
+        <legend>@Lang.T("Services needed", "Servicios necesarios")</legend>
+        <label><input type="checkbox" name="services" value="@Lang.T("Full make-ready / unit turn", "Make-ready / unit turn completo")" /><span>@Lang.T("Full make-ready / unit turn", "Make-ready / unit turn completo")</span></label>
+        <label><input type="checkbox" name="services" value="@Lang.T("Painting + drywall", "Pintura + drywall")" /><span>@Lang.T("Painting + drywall", "Pintura + drywall")</span></label>
+        <label><input type="checkbox" name="services" value="@Lang.T("Flooring + surfaces", "Pisos + superficies")" /><span>@Lang.T("Flooring + surfaces", "Pisos + superficies")</span></label>
+        <label><input type="checkbox" name="services" value="@Lang.T("Cleaning + trash-out", "Limpieza + trash-out")" /><span>@Lang.T("Cleaning + trash-out", "Limpieza + trash-out")</span></label>
+        <label><input type="checkbox" name="services" value="@Lang.T("Punch-list repairs", "Reparaciones punch-list")" /><span>@Lang.T("Punch-list repairs", "Reparaciones punch-list")</span></label>
+        <label><input type="checkbox" name="services" value="@Lang.T("Maintenance", "Mantenimiento")" /><span>@Lang.T("Maintenance", "Mantenimiento")</span></label>
+        <label><input type="checkbox" name="services" value="@Lang.T("Renovation / value-add", "Renovación / value-add")" /><span>@Lang.T("Renovation / value-add", "Renovación / value-add")</span></label>
+    </fieldset>
+    <label class="wide"><span>@Lang.T("Describe the condition, priorities, access and known scope", "Describa condición, prioridades, acceso y alcance conocido")</span>
+        <textarea name="description" rows="5"></textarea>
+    </label>
+    <label class="wide consent"><input type="checkbox" required="" name="consent"/><span>@Lang.T("I agree that J&A may contact me about this request. Do not include lockbox codes, financial data or sensitive resident information.", "Acepto que J&A me contacte sobre esta solicitud. No incluya códigos de acceso, datos financieros ni información sensible de residentes.")</span></label>
+    <button type="submit">@Lang.T("Send scope request", "Enviar solicitud")<span>↗</span></button>
+    <small>@Lang.T("This form securely records the initial request. Photos, reports and access credentials are coordinated after intake.", "Este formulario registra la solicitud inicial. Fotos, reportes y credenciales de acceso se coordinan después.")</small>
+</form>

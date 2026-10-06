@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+.git/
+.vs/
+.idea/
+**/.DS_Store
+**/appsettings.*.local.json
+.proto-cache/
+scripts/
