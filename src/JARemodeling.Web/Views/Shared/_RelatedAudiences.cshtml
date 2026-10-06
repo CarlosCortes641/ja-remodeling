@@ -1,0 +1,27 @@
+@{
+    var current = ViewData["Page"] as SitePage;
+    var others = SitePages.Audiences.Where(p => p != current).ToList();
+    var spanish = Lang.IsSpanish;
+    var number = 0;
+}
+<section class="section clients" aria-labelledby="related-title">
+    <div class="sectionIntro">
+        <p class="eyebrow">@Lang.T("OTHER WAYS J&A HELPS", "OTRAS FORMAS EN QUE J&A AYUDA")</p>
+        <h2 id="related-title">@Lang.T("Explore the workflow for your role.", "Explore el proceso para su función.")</h2>
+    </div>
+    <div class="clientGrid">
+        @foreach (var audience in others)
+        {
+            number++;
+            <a href="@audience.PathFor(spanish)"><span>@number.ToString("00")</span>
+                <h3>@audience.Name.For(spanish)</h3>
+                <p>@audience.CardText.For(spanish)</p><b>@Lang.T("See your workflow →", "Ver su proceso →")</b></a>
+        }
+        @if (current is not null)
+        {
+            <a href="@(SitePages.Home.PathFor(spanish))#services"><span>@((number + 1).ToString("00"))</span>
+                <h3>@Lang.T("All services", "Todos los servicios")</h3>
+                <p>@Lang.T("Unit turns, paint, drywall, flooring, cleaning, punch-list repairs and renovation in Charlotte, NC.", "Unit turns, pintura, drywall, pisos, limpieza, reparaciones punch-list y renovación en Charlotte, NC.")</p><b>@Lang.T("See services →", "Ver servicios →")</b></a>
+        }
+    </div>
+</section>

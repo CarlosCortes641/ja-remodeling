@@ -27,9 +27,17 @@ public class HomeController : Controller
     [HttpGet("/es/inversionistas-remotos")]
     public IActionResult RemoteInvestors() => Page(SitePages.RemoteInvestors, "RemoteInvestors");
 
+    [Route("/error")]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error() =>
         View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+    [Route("/not-found")]
+    public IActionResult NotFoundPage()
+    {
+        Response.StatusCode = StatusCodes.Status404NotFound;
+        return View("NotFound");
+    }
 
     private ViewResult Page(SitePage page, string view)
     {

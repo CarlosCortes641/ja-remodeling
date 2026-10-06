@@ -1,0 +1,11 @@
+@inject FaqCatalog Faq
+<div class="faqList">
+    @for (var i = 0; i < Faq.Items.Count; i++)
+    {
+        var item = Faq.Items[i];
+        <details open="@(i == 0)">
+            <summary><span>@((i + 1).ToString("00"))</span>@item.Question.For(Lang.IsSpanish)<b>+</b></summary>
+            <p>@item.Answer.For(Lang.IsSpanish)</p>
+        </details>
+    }
+</div>

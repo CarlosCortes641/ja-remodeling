@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = Lang.T("Page not found | J&A Remodeling", "Página no encontrada | J&A Remodeling");
+    ViewData["Robots"] = "noindex, follow";
+    ViewData["MainClass"] = "audiencePage";
+    var spanish = Lang.IsSpanish;
+}
+<div class="topline"><span>J&amp;A REMODELING AND SERVICES LLC</span><span>Charlotte, North Carolina</span></div>
+<header class="siteHeader"><a class="brand" href="@SitePages.Home.PathFor(spanish)"><span class="brandMark">J<span>&amp;</span>A</span><span class="brandWords">REMODELING<br/>+ SERVICES</span></a>
+    <div class="headerActions"><a class="headerCta" href="@(SitePages.Home.PathFor(spanish))#contact">@Lang.T("Start a turn", "Iniciar un turn")</a></div>
+</header>
+<section class="audienceHero">
+    <div><a class="backLink" href="@SitePages.Home.PathFor(spanish)">← J&amp;A Remodeling</a>
+        <p class="eyebrow">404</p>
+        <h1>@Lang.T("This page is not available.", "Esta página no está disponible.")</h1>
+        <p>@Lang.T("The link may be outdated. Choose where you want to go or call 980-298-4600.", "El enlace puede estar desactualizado. Elija a dónde quiere ir o llame al 980-298-4600.")</p>
+        <a class="button primary" href="@SitePages.Home.PathFor(spanish)">@Lang.T("Go to the home page", "Ir al inicio")<span>→</span></a></div>
+</section>
+<partial name="_RelatedAudiences" />

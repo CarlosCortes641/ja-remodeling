@@ -1,0 +1,52 @@
+[
+  {
+    "en": {
+      "q": "Can J&A handle more than one unit at a time?",
+      "a": "Yes. J&A has the team capacity to organize projects of 300+ units. The production plan is phased according to condition, scope, access and target dates."
+    },
+    "es": {
+      "q": "¿J&A puede manejar varias unidades al mismo tiempo?",
+      "a": "Sí. J&A tiene capacidad de equipo para organizar proyectos de 300+ unidades. El plan se divide según condición, alcance, acceso y fechas objetivo."
+    }
+  },
+  {
+    "en": {
+      "q": "What is included in a unit turn?",
+      "a": "Each scope is built from the actual unit condition. It may include painting, drywall, flooring, cleaning, trash-out, punch-list repairs and approved refresh work."
+    },
+    "es": {
+      "q": "¿Qué incluye un unit turn?",
+      "a": "Cada alcance parte de la condición real. Puede incluir pintura, drywall, pisos, limpieza, trash-out, reparaciones punch-list y mejoras aprobadas."
+    }
+  },
+  {
+    "en": {
+      "q": "How are additional repairs controlled?",
+      "a": "Work outside the approved scope should be documented and submitted for approval before proceeding, except where a separately approved emergency rule applies."
+    },
+    "es": {
+      "q": "¿Cómo se controlan las reparaciones adicionales?",
+      "a": "El trabajo fuera del alcance debe documentarse y aprobarse antes de continuar, excepto cuando exista una regla de emergencia previamente autorizada."
+    }
+  },
+  {
+    "en": {
+      "q": "Do owners need to be onsite?",
+      "a": "No. Remote-owner work can be coordinated through access instructions, written scope approval, milestone updates and final documentation."
+    },
+    "es": {
+      "q": "¿El propietario debe estar presente?",
+      "a": "No. El trabajo remoto puede coordinarse mediante instrucciones de acceso, aprobación escrita, actualizaciones y documentación final."
+    }
+  },
+  {
+    "en": {
+      "q": "How long does a turn take?",
+      "a": "Timing depends on unit condition, material availability, access, inspections and the approved scope. J&A will define the working schedule after review instead of publishing a one-size-fits-all promise."
+    },
+    "es": {
+      "q": "¿Cuánto tarda un turn?",
+      "a": "Depende de la condición, materiales, acceso, inspecciones y alcance. J&A define el calendario después de revisar, en vez de publicar una promesa única para todos."
+    }
+  }
+]

@@ -14,4 +14,5 @@ public static class SiteInfo
     public const string Region = "NC";
     public const string PostalCode = "28205";
     public const string HomeAdvisorUrl = "https://www.homeadvisor.com/rated.JARemodeling.112480483.html";
+    public const string MapUrl = "https://www.google.com/maps/search/?api=1&query=3119+Central+Ave+Unit+I+Charlotte+NC+28205";
 }

@@ -1,13 +1,16 @@
 ﻿@inject SiteJsonLd JsonLd
+@inject Microsoft.Extensions.Configuration.IConfiguration Config
 @{
     var page = ViewData["Page"] as SitePage;
-    var title = ViewData["Title"] as string ?? SiteInfo.ShortName;
-    var description = ViewData["MetaDescription"] as string;
-    var robots = ViewData["Robots"] as string ?? "index, follow";
-    var baseUrl = PublicUrl.Base(Context.Request);
-    var canonical = page is null
-        ? null
-        : PublicUrl.Absolute(Context.Request, Lang.IsSpanish ? page.SpanishPath : page.EnglishPath);
+    var spanish = Lang.IsSpanish;
+    var title = page?.Title.For(spanish) ?? ViewData["Title"] as string ?? SiteInfo.ShortName;
+    var description = page?.Description.For(spanish) ?? ViewData["MetaDescription"] as string;
+    var robots = ViewData["Robots"] as string
+                 ?? "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+    var canonical = page is null ? null : PublicUrl.Absolute(Context.Request, page.PathFor(spanish));
+    var ogImage = PublicUrl.Base(Context.Request) + SiteJsonLd.OgImagePath;
+    var googleVerification = Config["Seo:GoogleSiteVerification"];
+    var bingVerification = Config["Seo:BingSiteVerification"];
 }
 <!DOCTYPE html>
 <html lang="@Lang.HtmlLang">
@@ -20,6 +23,15 @@
         <meta name="description" content="@description" />
     }
     <meta name="robots" content="@robots" />
+    <meta name="theme-color" content="#1d5668" />
+    @if (!string.IsNullOrWhiteSpace(googleVerification))
+    {
+        <meta name="google-site-verification" content="@googleVerification" />
+    }
+    @if (!string.IsNullOrWhiteSpace(bingVerification))
+    {
+        <meta name="msvalidate.01" content="@bingVerification" />
+    }
     @if (page is not null)
     {
         <link rel="canonical" href="@canonical" />
@@ -31,20 +43,32 @@
         <meta property="og:title" content="@title" />
         <meta property="og:description" content="@description" />
         <meta property="og:url" content="@canonical" />
-        <meta property="og:locale" content="@(Lang.IsSpanish ? "es_US" : "en_US")" />
-        <meta name="twitter:card" content="summary" />
+        <meta property="og:locale" content="@(spanish ? "es_US" : "en_US")" />
+        <meta property="og:locale:alternate" content="@(spanish ? "en_US" : "es_US")" />
+        <meta property="og:image" content="@ogImage" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="@Lang.T("J&A Remodeling — unit turns and make-ready in Charlotte, NC", "J&A Remodeling — unit turns y make-ready en Charlotte, NC")" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="@title" />
+        <meta name="twitter:description" content="@description" />
+        <meta name="twitter:image" content="@ogImage" />
+        <meta name="geo.region" content="US-NC" />
+        <meta name="geo.placename" content="Charlotte" />
     }
     <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="~/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="~/img/apple-touch-icon.png" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     @if (page is not null)
     {
-        <script type="application/ld+json">@Html.Raw(JsonLd.Render(baseUrl))</script>
+        <script type="application/ld+json">@Html.Raw(JsonLd.Render(Context.Request, page, spanish))</script>
     }
 </head>
 <body>
 <main class="@ViewData["MainClass"]" lang="@Lang.HtmlLang">
 @RenderBody()
 </main>
-<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/site.js" asp-append-version="true" defer></script>
 </body>
 </html>

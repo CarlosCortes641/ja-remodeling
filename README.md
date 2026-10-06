@@ -23,7 +23,27 @@ Abre `http://localhost:5132`.
 2. Páginas por tipo de cliente: `/property-managers`, `/multifamily`, `/rental-owners`, `/remote-investors`
 3. Idioma por URL (inglés por defecto, español bajo `/es`): `/es`, `/es/administradores`, `/es/multifamily`, `/es/propietarios`, `/es/inversionistas-remotos`
 4. Formulario de solicitud y planner de 6 pasos → `POST /api/leads` → `LeadStore` in-memory → tablero `/ops`
-5. SEO: canonical, hreflang EN/ES, Open Graph, JSON-LD `LocalBusiness`, `/sitemap.xml`, `/robots.txt`
+5. SEO (ver abajo)
+
+## SEO
+
+- **Title y description únicos por página e idioma** en `Infrastructure/SitePages.cs` (fuente única; las vistas generadas no los definen).
+- **Canonical + hreflang** (`en-US`, `es-US`, `x-default`) en cada página y en `/sitemap.xml`.
+- **Open Graph / Twitter** con imagen `wwwroot/img/og-image.png` (1200×630).
+- **JSON-LD `@graph`** (`Infrastructure/SiteJsonLd.cs`): `LocalBusiness`/`GeneralContractor`, `WebSite`, `WebPage`; `FAQPage` en el home; `BreadcrumbList` + `Service` en páginas de audiencia.
+- **FAQ** desde `Data/faq.json`: misma fuente para la sección visible y el schema.
+- **Enlaces internos**: cada página de audiencia enlaza a las otras tres y a servicios.
+- **Técnico**: 404 real con `noindex`, 301 para slash final, Brotli/Gzip, caché de 1 año para assets versionados, `/robots.txt`, `/llms.txt`.
+
+Configuración opcional (`appsettings.json` o App Settings en Azure, usando `__` en vez de `:`):
+
+| Setting | Uso |
+| --- | --- |
+| `Seo:SiteUrl` | Dominio principal (ej. `https://abelremodel.com`) para canonical, hreflang y sitemap |
+| `Seo:GoogleSiteVerification` | Código de Google Search Console |
+| `Seo:BingSiteVerification` | Código de Bing Webmaster Tools |
+
+Las imágenes se regeneran con `python3 scripts/build_images.py` (requiere Pillow).
 
 **No activado:** CRM, email transaccional ni almacenamiento persistente de leads.
 

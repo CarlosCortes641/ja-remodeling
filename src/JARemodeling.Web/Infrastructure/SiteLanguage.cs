@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Diagnostics;
+
 namespace JARemodeling.Web.Infrastructure;
 
 /// <summary>
@@ -8,9 +10,10 @@ public sealed class SiteLanguage
 {
     public SiteLanguage(IHttpContextAccessor accessor)
     {
-        var path = accessor.HttpContext?.Request.Path.Value ?? "/";
-        IsSpanish = path.Equals("/es", StringComparison.OrdinalIgnoreCase)
-                    || path.StartsWith("/es/", StringComparison.OrdinalIgnoreCase);
+        var context = accessor.HttpContext;
+        var path = context?.Features.Get<IStatusCodeReExecuteFeature>()?.OriginalPath
+                   ?? context?.Request.Path.Value;
+        IsSpanish = IsSpanishPath(path);
     }
 
     public bool IsSpanish { get; }
@@ -19,4 +22,9 @@ public sealed class SiteLanguage
     public string HrefLang => IsSpanish ? "es-US" : "en-US";
 
     public string T(string english, string spanish) => IsSpanish ? spanish : english;
+
+    public static bool IsSpanishPath(string? path) =>
+        path is not null
+        && (path.Equals("/es", StringComparison.OrdinalIgnoreCase)
+            || path.StartsWith("/es/", StringComparison.OrdinalIgnoreCase));
 }

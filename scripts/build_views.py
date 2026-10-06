@@ -158,11 +158,15 @@ def main_markup(path: Path) -> tuple[str, str]:
     return (cls.group(1) if cls else ""), match.group(2)
 
 
-def head_meta(path: Path) -> tuple[str, str]:
-    doc = path.read_text(errors="ignore")
-    title = re.search(r"<title>(.*?)</title>", doc).group(1)
-    desc = re.search(r'name="description" content="([^"]*)"', doc).group(1)
-    return title, desc
+FAQ_ITEM = re.compile(
+    r"<details[^>]*><summary><span>[^<]*(?:<!-- -->[^<]*)?</span>(.*?)<b>\+</b></summary><p>(.*?)</p></details>",
+    re.S,
+)
+
+
+def faq_items(main: str) -> list[dict[str, str]]:
+    block = re.search(r'<div class="faqList">(.*?)</div></section>', main, re.S).group(1)
+    return [{"q": html.unescape(q), "a": html.unescape(a)} for q, a in FAQ_ITEM.findall(block)]
 
 
 def build_lead_form_partial(form_toks: list[str]) -> str:
@@ -182,6 +186,7 @@ def build_lead_form_partial(form_toks: list[str]) -> str:
 def build() -> None:
     views = WEB / "Views" / "Home"
     views.mkdir(parents=True, exist_ok=True)
+    (WEB / "Data").mkdir(exist_ok=True)
     partial_written = False
 
     for view, en_file, es_file, key, buyer in PAGES:
@@ -204,12 +209,20 @@ def build() -> None:
             for t in merged
         ]
 
-        en_title, en_desc = head_meta(CACHE / en_file)
-        es_title, es_desc = head_meta(CACHE / es_file)
+        if key == "home":
+            en_faq, es_faq = faq_items(en_main), faq_items(es_main)
+            assert en_faq and len(en_faq) == len(es_faq)
+            faq = [{"en": e, "es": s} for e, s in zip(en_faq, es_faq)]
+            (WEB / "Data" / "faq.json").write_text(json.dumps(faq, ensure_ascii=False, indent=2) + "\n")
+            start, end = find_element(merged, lambda t: t == '<div class="faqList">')
+            merged[start:end + 1] = ['<partial name="_FaqList" />']
+        else:
+            contact = merged.index('<section class="contactSection" id="request">')
+            merged.insert(contact, '<partial name="_RelatedAudiences" />')
+
+        # Title and meta description come from SitePages (unique per page and language).
         header = (
             "@{\n"
-            f"    ViewData[\"Title\"] = Lang.T({cs(en_title)}, {cs(es_title)});\n"
-            f"    ViewData[\"MetaDescription\"] = Lang.T({cs(en_desc)}, {cs(es_desc)});\n"
             f"    ViewData[\"MainClass\"] = {cs(main_class)};\n"
             "}\n"
         )
