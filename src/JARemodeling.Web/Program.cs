@@ -50,6 +50,17 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStatusCodePagesWithReExecute("/not-found");
 
+// [HttpGet] endpoints don't match HEAD; crawlers and uptime checks use it. The server still omits the body.
+app.Use(async (context, next) =>
+{
+    if (HttpMethods.IsHead(context.Request.Method))
+    {
+        context.Request.Method = HttpMethods.Get;
+    }
+
+    await next();
+});
+
 // One URL per page: /es/ and /property-managers/ redirect to their canonical form.
 app.Use(async (context, next) =>
 {
