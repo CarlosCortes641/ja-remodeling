@@ -35,9 +35,21 @@ Las vistas de `Views/Home` y `Views/Shared/_LeadForm.cshtml` se generan fusionan
 python3 scripts/build_views.py
 ```
 
+## Publicar (Azure App Service)
+
+Cada push a `main` despliega con GitHub Actions (`.github/workflows/deploy-azure.yml`) al App Service `jaremodeling` (plan compartido `ASP-recursoproduccion-94d0`, grupo `recursoproduccion`).
+
+El secreto `AZURE_WEBAPP_PUBLISH_PROFILE` ya está configurado en el repo. Si hay que renovarlo:
+
+1. En Azure Portal → App Service `jaremodeling` → **Get publish profile** → descarga el `.PublishSettings`
+2. En GitHub → repo → **Settings → Secrets and variables → Actions** → actualiza `AZURE_WEBAPP_PUBLISH_PROFILE` con el contenido completo del archivo
+3. Push a `main` (o **Actions → Deploy J&A Remodeling to Azure → Run workflow**)
+
+App URL: `https://jaremodeling.azurewebsites.net`
+
 ## Publicar (gratis en Render)
 
-Blueprint en [Render](https://dashboard.render.com/blueprint/new?repo=https://github.com/CarlosCortes641/ja-remodeling) con `render.yaml` + `Dockerfile`. El plan free se duerme sin tráfico.
+Alternativa: Blueprint en [Render](https://dashboard.render.com/blueprint/new?repo=https://github.com/CarlosCortes641/ja-remodeling) con `render.yaml` + `Dockerfile`. El plan free se duerme sin tráfico.
 
 ## Prototipo de referencia
 
